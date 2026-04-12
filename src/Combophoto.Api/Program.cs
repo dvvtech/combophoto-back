@@ -1,8 +1,9 @@
+using Combophoto.Api.AppStart;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
+var startup = new Startup(builder);
+startup.Initialize();
 
 var app = builder.Build();
 
