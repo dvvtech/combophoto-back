@@ -1,0 +1,7 @@
+﻿Merge the people from all uploaded photos into one realistic group photo.  
+Preserve each person's face, hairstyle, clothing, and body pose exactly as in their original image.  
+Arrange them side by side or in a casual group setting (e.g., standing together, sitting on a sofa, or walking in a park).  
+Match the lighting, color tone, and background seamlessly — choose a neutral, well‑lit indoor or outdoor background (e.g., a sunny garden, a cozy living room, or a modern coffee shop).  
+Make sure there are no cut‑and‑paste artifacts, double edges, or mismatched scales. All people should look naturally integrated into the same scene, as if they were photographed together.  
+Do not change facial expressions or skin tones. Do not add extra people.  
+Output a single high‑resolution image.
