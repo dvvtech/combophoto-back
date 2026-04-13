@@ -32,7 +32,9 @@ namespace Combophoto.Api.BLL.Services.S3
                 AuthenticationRegion = config.Region ?? "us-east-1"
             };
 
-            var credentials = new BasicAWSCredentials(config.AccessKey, config.SecretKey);
+            var fullAccessKey = $"{config.TenantId}:{config.AccessKey}";
+
+            var credentials = new BasicAWSCredentials(fullAccessKey, config.SecretKey);
             _s3Client = new AmazonS3Client(credentials, s3Config);
         }
 
