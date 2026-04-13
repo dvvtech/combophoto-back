@@ -5,9 +5,9 @@
         public const string SectionName = "S3Config";
 
         public string Endpoint { get; init; }
-        public string AccessKey { get; set; }
-        public string SecretKey { get; set; }
-        public string BucketName { get; set; }
-        public string Region { get; set; }
+        public string AccessKey { get; init; }
+        public string SecretKey { get; init; }
+        public string BucketName { get; init; }
+        public string Region { get; init; }
     }
 }
