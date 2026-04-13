@@ -1,6 +1,7 @@
 ﻿using Combophoto.Api.BLL.Abstract;
 using Combophoto.Api.BLL.Services;
 using Combophoto.Api.BLL.Services.S3;
+using Combophoto.Api.Configuration;
 
 namespace Combophoto.Api.AppStart
 {
@@ -20,9 +21,15 @@ namespace Combophoto.Api.AppStart
                 _builder.Services.AddSwaggerGen();
             }
 
+            InitConfigs();
             ConfigureServices();
 
             _builder.Services.AddControllers();
+        }
+
+        private void InitConfigs()
+        {
+            _builder.Services.Configure<S3Config>(_builder.Configuration.GetSection(S3Config.SectionName));
         }
 
         private void ConfigureServices()
