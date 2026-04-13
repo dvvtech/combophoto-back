@@ -1,0 +1,37 @@
+﻿using Combophoto.Api.BLL.Abstract;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Combophoto.Api.Controllers
+{
+    [ApiController]
+    [Route("files")]
+    public class FilesController : ControllerBase
+    {
+        private readonly IStorageService _storageService;
+
+        public FilesController(IStorageService storageService)
+        {
+            _storageService = storageService;
+        }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            try
+            {
+                // Генерируем уникальное имя, чтобы избежать перезаписи
+                var uniqueKey = $"{Guid.NewGuid()}_{file.FileName}";
+                var resultKey = await _storageService.UploadFileAsync(file, uniqueKey);
+
+                return Ok(new { Message = "Upload successful", Key = resultKey });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+    }
+}

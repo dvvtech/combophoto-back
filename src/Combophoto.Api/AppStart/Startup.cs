@@ -1,5 +1,6 @@
 ﻿using Combophoto.Api.BLL.Abstract;
 using Combophoto.Api.BLL.Services;
+using Combophoto.Api.BLL.Services.S3;
 
 namespace Combophoto.Api.AppStart
 {
@@ -21,7 +22,8 @@ namespace Combophoto.Api.AppStart
 
         private void ConfigureServices()
         {            
-            _builder.Services.AddScoped<IPromptService, PromptService>();            
+            _builder.Services.AddScoped<IPromptService, PromptService>();
+            _builder.Services.AddScoped<IStorageService, S3StorageService>();
         }
     }
 }
