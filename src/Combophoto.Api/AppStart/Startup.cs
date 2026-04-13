@@ -15,6 +15,11 @@ namespace Combophoto.Api.AppStart
 
         public void Initialize()
         {
+            if (_builder.Environment.IsDevelopment())
+            {
+                _builder.Services.AddSwaggerGen();
+            }
+
             ConfigureServices();
 
             _builder.Services.AddControllers();
