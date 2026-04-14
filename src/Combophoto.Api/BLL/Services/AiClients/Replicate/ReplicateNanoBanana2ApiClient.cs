@@ -28,8 +28,7 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
             {
                 input = new
                 {
-                    prompt = _promptService.GetPrompt(),
-                    //ompt = "In the first photo, there is a person. In the second photo, there is a hairstyle of another person. Transfer the hairstyle from the second photo onto the head of the person in the first photo. Keep the face, pose, and background from the first photo, but make the hair the same as in the second photo (shape, length, color, style). The result should look as realistic and natural as possible.",
+                    prompt = _promptService.GetPrompt(),                    
                     image_input = imageUrls                    
                 }
             };
