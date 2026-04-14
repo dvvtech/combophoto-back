@@ -23,10 +23,7 @@ namespace Combophoto.Api.BLL.Services.S3
             {
                 // Используем кастомный эндпоинт (DigitalOcean, MinIO, VK, etc.)
                 ServiceURL = config.Endpoint,
-                // ForcePathStyle должен быть false для использования виртуальных хостов (стандарт S3)
-                // DigitalOcean Spaces и AWS S3 требуют false.
-                // MinIO в зависимости от настроек может требовать true, но лучше false.
-                ForcePathStyle = false,
+                ForcePathStyle = true,
                 // Указываем регион, даже если он не используется провайдером,
                 // SDK требует его для подписи запросов (Signature V4)
                 AuthenticationRegion = config.Region ?? "us-east-1"
