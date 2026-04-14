@@ -30,6 +30,7 @@ namespace Combophoto.Api.AppStart
         private void InitConfigs()
         {
             _builder.Services.Configure<S3Config>(_builder.Configuration.GetSection(S3Config.SectionName));
+            _builder.Services.Configure<ReplicateConfig>(_builder.Configuration.GetSection(ReplicateConfig.SectionName));
         }
 
         private void ConfigureServices()
