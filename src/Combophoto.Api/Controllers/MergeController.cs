@@ -26,5 +26,11 @@ namespace Combophoto.Api.Controllers
 
             return Ok(resUrl);
         }
+
+        [HttpGet("test")]
+        public ActionResult Test()
+        { 
+            return Ok("12345");
+        }
     }
 }

@@ -1,0 +1,39 @@
+services:
+  combophoto_api:        
+    image: ghcr.io/dvvtech/combophoto-back:latest      
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Prod      
+    networks:
+      - public-network5
+    secrets:
+      - ReplicateConfig__ApiToken
+      - S3CloudConfig__TenantId      
+      - S3CloudConfig__AccessKey
+      - S3CloudConfig__SecretKey
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:      
+        - "traefik.enable=true"      
+        - "traefik.http.routers.combophoto-api.rule=Host(`api.cloud-platform.pro`) && PathPrefix(`/combophoto`)"
+        - "traefik.http.routers.combophoto-api.entrypoints=websecure"      
+        - "traefik.http.routers.combophoto-api.tls.certresolver=letsencrypt"     
+        - "traefik.http.services.combophoto-api.loadbalancer.server.port=8080"
+        - "traefik.http.middlewares.combophoto-stripprefix.stripprefix.prefixes=/combophoto"
+        - "traefik.http.routers.combophoto-api.middlewares=combophoto-stripprefix"
+
+networks:
+  public-network5:
+    external: true
+
+secrets:
+  ReplicateConfig__ApiToken:
+    external: true  
+  S3CloudConfig__TenantId:
+    external: true
+  S3CloudConfig__AccessKey:
+    external: true
+  S3CloudConfig__SecretKey:
+    external: true

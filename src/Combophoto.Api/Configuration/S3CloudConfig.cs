@@ -1,8 +1,8 @@
 ﻿namespace Combophoto.Api.Configuration
 {
-    public class S3Config
+    public class S3CloudConfig
     {
-        public const string SectionName = "S3Config";
+        public const string SectionName = "S3CloudConfig";
 
         public string Endpoint { get; init; }
 

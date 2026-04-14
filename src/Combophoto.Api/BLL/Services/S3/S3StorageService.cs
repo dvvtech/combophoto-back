@@ -14,7 +14,7 @@ namespace Combophoto.Api.BLL.Services.S3
 
         private readonly string _bucketName;
 
-        public S3StorageService(IOptions<S3Config> settings)
+        public S3StorageService(IOptions<S3CloudConfig> settings)
         {
             var config = settings.Value;
             _bucketName = config.BucketName;
