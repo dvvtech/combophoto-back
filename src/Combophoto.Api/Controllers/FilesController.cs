@@ -14,6 +14,20 @@ namespace Combophoto.Api.Controllers
             _storageService = storageService;
         }
 
+        [HttpGet("{key}/url")]
+        public async Task<IActionResult> GetPresignedUrl(string key, [FromQuery] double expiresHours = 1)
+        {
+            try
+            {
+                var url = await _storageService.GetPresignedUrlAsync(key, expiresHours);
+                return Ok(new { Url = url });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         [HttpPost("upload")]
         public async Task<IActionResult> Upload(IFormFile file)
         {

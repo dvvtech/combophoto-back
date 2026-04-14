@@ -1,5 +1,6 @@
 ﻿using Amazon.Runtime;
 using Amazon.S3;
+using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Combophoto.Api.BLL.Abstract;
 using Combophoto.Api.Configuration;
@@ -70,6 +71,17 @@ namespace Combophoto.Api.BLL.Services.S3
                 // Обработка специфичных ошибок S3
                 throw new Exception($"Ошибка S3: {ex.Message} (Код: {ex.ErrorCode})", ex);
             }
+        }
+        public async Task<string> GetPresignedUrlAsync(string objectKey, double expiresHours = 1)
+        {
+            var request = new GetPreSignedUrlRequest
+            {
+                BucketName = _bucketName,
+                Key = objectKey,
+                Expires = DateTime.UtcNow.AddHours(expiresHours)
+            };
+
+            return _s3Client.GetPreSignedURL(request);
         }
     }
 }
