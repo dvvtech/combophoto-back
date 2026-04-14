@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Combophoto.Api.BLL.Services.AiClients.Replicate
 {
-    public class ReplicateNanoBanana2ApiClient
+    public class ReplicateNanoBanana2ApiClient : IReplicateNanoBanana2ApiClient
     {
         private readonly HttpClient _httpClient;
 

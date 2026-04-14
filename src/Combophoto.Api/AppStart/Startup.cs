@@ -1,5 +1,6 @@
 ﻿using Combophoto.Api.BLL.Abstract;
 using Combophoto.Api.BLL.Services;
+using Combophoto.Api.BLL.Services.AiClients.Replicate;
 using Combophoto.Api.BLL.Services.S3;
 using Combophoto.Api.Configuration;
 
@@ -23,6 +24,7 @@ namespace Combophoto.Api.AppStart
 
             InitConfigs();
             ConfigureServices();
+            ConfigureClientAPI();
 
             _builder.Services.AddControllers();
         }
@@ -37,6 +39,19 @@ namespace Combophoto.Api.AppStart
         {            
             _builder.Services.AddScoped<IPromptService, PromptService>();
             _builder.Services.AddScoped<IStorageService, S3StorageService>();
+        }
+
+        private void ConfigureClientAPI()
+        {
+            _builder.Services.AddHttpClient<IReplicateNanoBanana2ApiClient, ReplicateNanoBanana2ApiClient>((serviceProvider, client) =>
+            {
+                var replicateConfig = _builder.Configuration.GetSection(ReplicateConfig.SectionName).Get<ReplicateConfig>();
+
+                client.BaseAddress = new Uri("https://api.replicate.com/v1/");
+                client.Timeout = TimeSpan.FromSeconds(45);
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {replicateConfig.ApiToken}");
+                client.DefaultRequestHeaders.Add("Prefer", "wait");
+            });
         }
     }
 }
