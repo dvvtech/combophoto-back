@@ -23,6 +23,11 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
 
         public async Task<string> ProcessPredictionAsync(string[] imageUrls)
         {
+            foreach (var img in imageUrls)
+            {
+                _logger.LogInformation(img);
+            }
+
             //Create request
             var requestBody = new
             {
@@ -44,6 +49,7 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
                 var responseContentError = await response.Content.ReadAsStringAsync();
                 _logger.LogError(responseContentError);
                 string httpStatusCode = ((int)response.StatusCode).ToString();
+                _logger.LogInformation("result is null");
                 return null;
             }
 
@@ -53,6 +59,7 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
             if (document.RootElement.TryGetProperty("output", out var outputProperty))
             {
                 var resultUrl = outputProperty.GetString();
+                _logger.LogInformation($"result is {resultUrl}");
                 if (!string.IsNullOrEmpty(resultUrl))
                 {
                     return resultUrl;
