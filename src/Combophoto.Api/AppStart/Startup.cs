@@ -36,6 +36,11 @@ namespace Combophoto.Api.AppStart
 
         private void InitConfigs()
         {
+            if (!_builder.Environment.IsDevelopment())
+            {
+                _builder.Configuration.AddKeyPerFile("/run/secrets", optional: true);
+            }
+
             _builder.Services.Configure<S3CloudConfig>(_builder.Configuration.GetSection(S3CloudConfig.SectionName));
             _builder.Services.Configure<ReplicateConfig>(_builder.Configuration.GetSection(ReplicateConfig.SectionName));
         }
