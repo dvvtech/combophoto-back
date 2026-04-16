@@ -1,4 +1,5 @@
-﻿using Combophoto.Api.BLL.Abstract;
+﻿using Combophoto.Api.AppStart.Extensions;
+using Combophoto.Api.BLL.Abstract;
 using Combophoto.Api.BLL.Services;
 using Combophoto.Api.BLL.Services.AiClients.Replicate;
 using Combophoto.Api.BLL.Services.S3;
@@ -20,6 +21,10 @@ namespace Combophoto.Api.AppStart
             if (_builder.Environment.IsDevelopment())
             {
                 _builder.Services.AddSwaggerGen();
+            }
+            else
+            {
+                _builder.Services.ConfigureCors();
             }
 
             InitConfigs();

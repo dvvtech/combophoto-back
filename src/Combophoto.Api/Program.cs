@@ -1,4 +1,5 @@
 using Combophoto.Api.AppStart;
+using Combophoto.Api.AppStart.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,10 @@ if (builder.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else
+{
+    app.ApplyCors();
 }
 
 app.UseHttpsRedirection();
