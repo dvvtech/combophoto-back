@@ -12,7 +12,7 @@
                 options.AddPolicy(AllowSpecificOriginPolicy,
                     policy =>
                     {
-                        policy.WithOrigins("https://combophoto.ru")
+                        policy.WithOrigins("http://combophoto.ru")
                               //.AllowCredentials() // Разрешить куки
                               .AllowAnyHeader()
                               .AllowAnyMethod();
