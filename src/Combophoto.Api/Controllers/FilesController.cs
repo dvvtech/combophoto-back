@@ -40,7 +40,10 @@ namespace Combophoto.Api.Controllers
                 var uniqueKey = $"{Guid.NewGuid()}_{file.FileName}";
                 var resultKey = await _storageService.UploadFileAsync(file, uniqueKey);
 
-                return Ok(new { Message = "Upload successful", Key = resultKey });
+                double expiresHours = 1;
+                var url = await _storageService.GetPresignedUrlAsync(uniqueKey, expiresHours);
+
+                return Ok(new { Message = "Upload successful", Url = url });                
             }
             catch (Exception ex)
             {
