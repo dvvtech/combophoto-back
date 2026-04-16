@@ -22,12 +22,7 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
         }
 
         public async Task<string> ProcessPredictionAsync(string[] imageUrls)
-        {
-            foreach (var img in imageUrls)
-            {
-                _logger.LogInformation(img);
-            }
-
+        {            
             //Create request
             var requestBody = new
             {
@@ -58,13 +53,14 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
             using var document = JsonDocument.Parse(responseContent);
             if (document.RootElement.TryGetProperty("output", out var outputProperty))
             {
-                var resultUrl = outputProperty.GetString();
-                _logger.LogInformation($"result is {resultUrl}");
+                var resultUrl = outputProperty.GetString();                
                 if (!string.IsNullOrEmpty(resultUrl))
                 {
+                    _logger.LogInformation($"result success");
                     return resultUrl;
                 }
 
+                _logger.LogInformation($"result fail");
                 _logger.LogError(responseContent);
             }
 
