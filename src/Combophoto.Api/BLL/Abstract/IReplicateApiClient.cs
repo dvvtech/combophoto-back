@@ -1,6 +1,6 @@
 ﻿namespace Combophoto.Api.BLL.Abstract
 {
-    public interface IReplicateNanoBanana2ApiClient
+    public interface IReplicateApiClient
     {
         Task<string> ProcessPredictionAsync(string[] imageUrls);
     }

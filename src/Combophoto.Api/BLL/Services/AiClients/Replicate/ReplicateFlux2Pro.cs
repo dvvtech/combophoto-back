@@ -5,18 +5,18 @@ using System.Text.Json;
 namespace Combophoto.Api.BLL.Services.AiClients.Replicate
 {
     /// <summary>
-    /// https://replicate.com/google/nano-banana-2
+    /// https://replicate.com/black-forest-labs/flux-2-pro
     /// </summary>
-    public class ReplicateNanoBanana2ApiClient : IReplicateApiClient
+    public class ReplicateFlux2Pro : IReplicateApiClient
     {
         private readonly HttpClient _httpClient;
-        private readonly ILogger<ReplicateNanoBanana2ApiClient> _logger;
+        private readonly ILogger<ReplicateFlux2Pro> _logger;
         private readonly IPromptService _promptService;
-    
-        public ReplicateNanoBanana2ApiClient(
+
+        public ReplicateFlux2Pro(
             HttpClient httpClient,
             IPromptService promptService,
-            ILogger<ReplicateNanoBanana2ApiClient> logger)
+            ILogger<ReplicateFlux2Pro> logger)
         {
             _httpClient = httpClient;
             _promptService = promptService;
@@ -24,14 +24,14 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
         }
 
         public async Task<string> ProcessPredictionAsync(string[] imageUrls)
-        {            
+        {
             //Create request
             var requestBody = new
             {
                 input = new
                 {
-                    prompt = _promptService.GetPrompt(),                    
-                    image_input = imageUrls                    
+                    prompt = _promptService.GetPrompt(),
+                    input_images = imageUrls
                 }
             };
 
@@ -40,7 +40,7 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             //Send request            
-            var response = await _httpClient.PostAsync("models/google/nano-banana-2/predictions", content);
+            var response = await _httpClient.PostAsync("models/black-forest-labs/flux-2-pro/predictions", content);
             if (!response.IsSuccessStatusCode)
             {
                 var responseContentError = await response.Content.ReadAsStringAsync();
@@ -55,7 +55,7 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
             using var document = JsonDocument.Parse(responseContent);
             if (document.RootElement.TryGetProperty("output", out var outputProperty))
             {
-                var resultUrl = outputProperty.GetString();                
+                var resultUrl = outputProperty.GetString();
                 if (!string.IsNullOrEmpty(resultUrl))
                 {
                     _logger.LogInformation($"result success");

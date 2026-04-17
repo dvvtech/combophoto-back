@@ -8,9 +8,9 @@ namespace Combophoto.Api.Controllers
     [ApiController]
     public class MergeController : ControllerBase
     {
-        private readonly IReplicateNanoBanana2ApiClient _apiClient;
+        private readonly IReplicateApiClient _apiClient;
 
-        public MergeController(IReplicateNanoBanana2ApiClient apiClient)
+        public MergeController(IReplicateApiClient apiClient)
         {
             _apiClient = apiClient;
         }
