@@ -1,0 +1,21 @@
+﻿Merge the people from all uploaded photos into one realistic group photo.
+
+CRITICAL: Preserve each person's identity exactly. 
+Faces must remain unchanged, with identical facial features, proportions, eye shape, nose, mouth, and skin texture. 
+Do not reinterpret or regenerate faces. Do not beautify, stylize, or modify identity in any way.
+
+Use the original faces as-is. Maintain exact likeness and recognizability.
+
+Preserve hairstyle, clothing, body pose, and proportions exactly as in the source images.
+
+Ensure facial consistency: no morphing, no blending between identities, no face averaging.
+
+Arrange them naturally in a group setting. Match lighting, shadows, and perspective consistently.
+
+Avoid any artifacts: no distortions, no asymmetry, no extra fingers, no deformed faces.
+
+Keep original facial expressions and gaze direction unchanged.
+
+High realism, photorealistic, 1:1 identity fidelity, zero identity drift.
+
+Output a single high-resolution image.

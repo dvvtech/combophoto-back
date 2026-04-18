@@ -3,5 +3,7 @@
     public interface IPromptService
     {
         string GetPrompt();
+
+        string GetPromptV2();
     }
 }
