@@ -9,10 +9,14 @@ namespace Combophoto.Api.Controllers
     public class MergeController : ControllerBase
     {
         private readonly IReplicateApiClient _apiClient;
+        private readonly ILogger<MergeController> _logger;
 
-        public MergeController(IReplicateApiClient apiClient)
+        public MergeController(
+            IReplicateApiClient apiClient,
+            ILogger<MergeController> logger)
         {
             _apiClient = apiClient;
+            _logger = logger;
         }
 
         [HttpPost("run")]
@@ -28,8 +32,25 @@ namespace Combophoto.Api.Controllers
         }
 
         [HttpGet("test")]
-        public ActionResult Test()
-        { 
+        public async Task<ActionResult> Test()
+        {
+            try
+            {
+                _logger.LogInformation("start");
+
+                var baseUrl = "http://pyproject-api:8080";
+
+                using var httpClient = new HttpClient();
+
+                var response = await httpClient.GetAsync($"{baseUrl}/health");
+                var content = await response.Content.ReadAsStringAsync();
+                _logger.LogInformation(content);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("error1111111111111111");
+            }
+
             return Ok("12345");
         }
     }
