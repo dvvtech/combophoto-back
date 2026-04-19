@@ -54,7 +54,7 @@ namespace Combophoto.Api.AppStart
         private void ConfigureClientAPI()
         {
             //_builder.Services.AddHttpClient<IReplicateNanoBanana2ApiClient, ReplicateNanoBanana2ApiClient>((serviceProvider, client) =>
-            _builder.Services.AddHttpClient<IReplicateApiClient, ReplicateFlux2Pro>((serviceProvider, client) =>
+            _builder.Services.AddHttpClient<IReplicateApiClient, ReplicateFlux2ProApiClient>((serviceProvider, client) =>
             {
                 var replicateConfig = _builder.Configuration.GetSection(ReplicateConfig.SectionName).Get<ReplicateConfig>();
 

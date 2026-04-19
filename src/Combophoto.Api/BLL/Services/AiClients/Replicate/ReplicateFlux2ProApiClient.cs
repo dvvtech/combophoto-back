@@ -7,16 +7,16 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
     /// <summary>
     /// https://replicate.com/black-forest-labs/flux-2-pro
     /// </summary>
-    public class ReplicateFlux2Pro : IReplicateApiClient
+    public class ReplicateFlux2ProApiClient : IReplicateApiClient
     {
         private readonly HttpClient _httpClient;
-        private readonly ILogger<ReplicateFlux2Pro> _logger;
+        private readonly ILogger<ReplicateFlux2ProApiClient> _logger;
         private readonly IPromptService _promptService;
 
-        public ReplicateFlux2Pro(
+        public ReplicateFlux2ProApiClient(
             HttpClient httpClient,
             IPromptService promptService,
-            ILogger<ReplicateFlux2Pro> logger)
+            ILogger<ReplicateFlux2ProApiClient> logger)
         {
             _httpClient = httpClient;
             _promptService = promptService;
