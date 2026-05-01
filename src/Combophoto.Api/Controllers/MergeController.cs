@@ -31,6 +31,31 @@ namespace Combophoto.Api.Controllers
             return Ok(resUrl);
         }
 
+        //[HttpGet("test")]
+        //public async Task<ActionResult> Test()
+        //{
+        //    try
+        //    {
+        //        _logger.LogInformation("start");
+
+        //        var baseUrl = "http://pyproject-api:8080";
+
+        //        using var httpClient = new HttpClient();
+
+        //        var response = await httpClient.GetAsync($"{baseUrl}/health");
+        //        var content = await response.Content.ReadAsStringAsync();
+        //        _logger.LogInformation(content);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogInformation("error1111111111111111");
+        //    }
+
+        //    return Ok("12345");
+        //}
+
+        //https://api.cloud-platform.pro/combophoto/merge/test
+
         [HttpGet("test")]
         public async Task<ActionResult> Test()
         {
@@ -38,7 +63,7 @@ namespace Combophoto.Api.Controllers
             {
                 _logger.LogInformation("start");
 
-                var baseUrl = "http://pyproject-api:8080";
+                var baseUrl = "http://faceswap-api:8080/health";
 
                 using var httpClient = new HttpClient();
 
