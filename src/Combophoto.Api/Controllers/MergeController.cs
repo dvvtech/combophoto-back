@@ -36,6 +36,8 @@ namespace Combophoto.Api.Controllers
                 return BadRequest();
             }
 
+            _logger.LogInformation($"FluxUrl: {resUrl}");
+
             var faceSwapResultUrl = await _faceSwapApiClient.SwapFacesAsync(
                 resUrl,
                 request.ImageUrls,
@@ -46,6 +48,8 @@ namespace Combophoto.Api.Controllers
                 _logger.LogError("Face swap failed for generated image {GeneratedImageUrl}", resUrl);
                 return StatusCode(StatusCodes.Status502BadGateway, "Face swap failed.");
             }
+
+            _logger.LogInformation($"FaceSwapUrl: {faceSwapResultUrl}");
 
             return Ok(faceSwapResultUrl);
         }
