@@ -63,7 +63,7 @@ namespace Combophoto.Api.Controllers
             {
                 _logger.LogInformation("start");
 
-                var baseUrl = "http://faceswap-api:8080/health";
+                var baseUrl = "http://faceswap-api:8080";
 
                 using var httpClient = new HttpClient();
 
