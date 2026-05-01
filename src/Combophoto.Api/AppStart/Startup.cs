@@ -56,12 +56,12 @@ namespace Combophoto.Api.AppStart
         private void ConfigureClientAPI()
         {
             //_builder.Services.AddHttpClient<IReplicateNanoBanana2ApiClient, ReplicateNanoBanana2ApiClient>((serviceProvider, client) =>
-            _builder.Services.AddHttpClient<IReplicateApiClient, ReplicateFlux2ProApiClient>((serviceProvider, client) =>
+            _builder.Services.AddHttpClient<IReplicateApiClient, ReplicateFlux2MaxApiClient>((serviceProvider, client) =>
             {
                 var replicateConfig = _builder.Configuration.GetSection(ReplicateConfig.SectionName).Get<ReplicateConfig>();
 
                 client.BaseAddress = new Uri("https://api.replicate.com/v1/");
-                client.Timeout = TimeSpan.FromSeconds(45);
+                client.Timeout = TimeSpan.FromSeconds(90);
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {replicateConfig.ApiToken}");
                 client.DefaultRequestHeaders.Add("Prefer", "wait");
             });
