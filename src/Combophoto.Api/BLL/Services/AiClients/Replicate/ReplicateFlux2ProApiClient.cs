@@ -31,7 +31,12 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
                 input = new
                 {
                     prompt = _promptService.GetPrompt(),
-                    input_images = imageUrls
+                    input_images = imageUrls,
+                    aspect_ratio = "1:1",
+                    resolution = "2 MP",
+                    output_format = "jpg",
+                    output_quality = 100,
+                    safety_tolerance = 2
                 }
             };
 

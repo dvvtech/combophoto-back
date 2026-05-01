@@ -1,7 +1,13 @@
-﻿Merge the people from all uploaded photos into one realistic group photo.  
-Preserve each person's face, hairstyle, clothing, and body pose exactly as in their original image.  
-Arrange them side by side or in a casual group setting (e.g., standing together, sitting on a sofa, or walking in a park).  
-Match the lighting, color tone, and background seamlessly — choose a neutral, well‑lit indoor or outdoor background (e.g., a sunny garden, a cozy living room, or a modern coffee shop).  
-Make sure there are no cut‑and‑paste artifacts, double edges, or mismatched scales. All people should look naturally integrated into the same scene, as if they were photographed together.  
-Do not change facial expressions or skin tones. Do not add extra people.  
-Output a single high‑resolution image.
+Create one realistic group photo using every person from the uploaded reference photos.
+
+Use each reference image as a separate person reference. Keep each person's recognizable identity, hairstyle, clothing colors, age, body proportions, and natural expression from the source photo.
+
+Make every face clearly visible, sharp, evenly lit, and large enough for face restoration after generation. Prefer front-facing or slightly turned faces with open visibility of the eyes, nose, mouth, jawline, and skin texture.
+
+Arrange the people naturally in one shared scene, with comfortable spacing between faces and bodies. Use a simple realistic setting such as a bright indoor room, a modern coffee shop, a park, or a clean studio-like background.
+
+Use consistent camera perspective, realistic scale, natural shadows, matching color temperature, and coherent lighting across all people. The result should look like one real photo taken by the same camera.
+
+Keep hands relaxed and natural, place small or difficult hand details outside the main focus when possible, and prioritize clean facial detail and natural body placement.
+
+Output one photorealistic high-resolution image with all referenced people present.
