@@ -9,26 +9,45 @@ namespace Combophoto.Api.Controllers
     public class MergeController : ControllerBase
     {
         private readonly IReplicateApiClient _apiClient;
+        private readonly IFaceSwapApiClient _faceSwapApiClient;
         private readonly ILogger<MergeController> _logger;
 
         public MergeController(
             IReplicateApiClient apiClient,
+            IFaceSwapApiClient faceSwapApiClient,
             ILogger<MergeController> logger)
         {
             _apiClient = apiClient;
+            _faceSwapApiClient = faceSwapApiClient;
             _logger = logger;
         }
 
         [HttpPost("run")]
-        public async Task<ActionResult> Run(CombophotoRequest request)
+        public async Task<ActionResult> Run(CombophotoRequest request, CancellationToken cancellationToken)
         {
+            if (request.ImageUrls == null || request.ImageUrls.Length < 2)
+            {
+                return BadRequest("At least two image URLs are required.");
+            }
+
             var resUrl = await _apiClient.ProcessPredictionAsync(request.ImageUrls);
             if (string.IsNullOrEmpty(resUrl))
             {
                 return BadRequest();
             }
 
-            return Ok(resUrl);
+            var faceSwapResultUrl = await _faceSwapApiClient.SwapFacesAsync(
+                resUrl,
+                request.ImageUrls,
+                cancellationToken);
+
+            if (string.IsNullOrEmpty(faceSwapResultUrl))
+            {
+                _logger.LogError("Face swap failed for generated image {GeneratedImageUrl}", resUrl);
+                return StatusCode(StatusCodes.Status502BadGateway, "Face swap failed.");
+            }
+
+            return Ok(faceSwapResultUrl);
         }
 
         //[HttpGet("test")]

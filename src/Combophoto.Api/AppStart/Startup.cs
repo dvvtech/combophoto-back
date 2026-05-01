@@ -1,6 +1,7 @@
 ﻿using Combophoto.Api.AppStart.Extensions;
 using Combophoto.Api.BLL.Abstract;
 using Combophoto.Api.BLL.Services;
+using Combophoto.Api.BLL.Services.AiClients.FaceSwap;
 using Combophoto.Api.BLL.Services.AiClients.Replicate;
 using Combophoto.Api.BLL.Services.S3;
 using Combophoto.Api.Configuration;
@@ -43,6 +44,7 @@ namespace Combophoto.Api.AppStart
 
             _builder.Services.Configure<S3CloudConfig>(_builder.Configuration.GetSection(S3CloudConfig.SectionName));
             _builder.Services.Configure<ReplicateConfig>(_builder.Configuration.GetSection(ReplicateConfig.SectionName));
+            _builder.Services.Configure<FaceSwapConfig>(_builder.Configuration.GetSection(FaceSwapConfig.SectionName));
         }
 
         private void ConfigureServices()
@@ -62,6 +64,15 @@ namespace Combophoto.Api.AppStart
                 client.Timeout = TimeSpan.FromSeconds(45);
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {replicateConfig.ApiToken}");
                 client.DefaultRequestHeaders.Add("Prefer", "wait");
+            });
+
+            _builder.Services.AddHttpClient<IFaceSwapApiClient, FaceSwapApiClient>((serviceProvider, client) =>
+            {
+                var faceSwapConfig = _builder.Configuration.GetSection(FaceSwapConfig.SectionName).Get<FaceSwapConfig>()
+                    ?? new FaceSwapConfig();
+
+                client.BaseAddress = new Uri(faceSwapConfig.BaseUrl);
+                client.Timeout = TimeSpan.FromSeconds(faceSwapConfig.TimeoutSeconds);
             });
         }
     }
