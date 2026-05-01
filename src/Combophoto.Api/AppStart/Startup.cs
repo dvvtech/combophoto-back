@@ -5,6 +5,7 @@ using Combophoto.Api.BLL.Services.AiClients.FaceSwap;
 using Combophoto.Api.BLL.Services.AiClients.Replicate;
 using Combophoto.Api.BLL.Services.S3;
 using Combophoto.Api.Configuration;
+using Serilog;
 
 namespace Combophoto.Api.AppStart
 {
@@ -19,6 +20,8 @@ namespace Combophoto.Api.AppStart
 
         public void Initialize()
         {
+            ConfigureLogger();
+
             if (_builder.Environment.IsDevelopment())
             {
                 _builder.Services.AddSwaggerGen();
@@ -33,6 +36,17 @@ namespace Combophoto.Api.AppStart
             ConfigureClientAPI();
 
             _builder.Services.AddControllers();
+        }
+
+        private void ConfigureLogger()
+        {
+            _builder.Host.UseSerilog((context, services, loggerConfiguration) =>
+            {
+                loggerConfiguration
+                    .ReadFrom.Configuration(context.Configuration)
+                    .ReadFrom.Services(services)
+                    .Enrich.FromLogContext();
+            });
         }
 
         private void InitConfigs()
