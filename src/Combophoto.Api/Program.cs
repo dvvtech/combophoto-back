@@ -1,26 +1,54 @@
 using Combophoto.Api.AppStart;
 using Combophoto.Api.AppStart.Extensions;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
-var startup = new Startup(builder);
-startup.Initialize();
-
-var app = builder.Build();
-
-if (builder.Environment.IsDevelopment())
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    Log.Information("Starting Combophoto API");
+
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Host.UseSerilog((context, services, loggerConfiguration) =>
+    {
+        loggerConfiguration
+            .ReadFrom.Configuration(context.Configuration)
+            .ReadFrom.Services(services)
+            .Enrich.FromLogContext();
+    });
+
+    var startup = new Startup(builder);
+    startup.Initialize();
+
+    var app = builder.Build();
+
+    app.UseSerilogRequestLogging();
+
+    if (builder.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+    else
+    {
+        app.ApplyCors();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.Run();
 }
-else
+catch (Exception ex)
 {
-    app.ApplyCors();
+    Log.Fatal(ex, "Combophoto API terminated unexpectedly");
 }
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+finally
+{
+    Log.CloseAndFlush();
+}

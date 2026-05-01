@@ -86,13 +86,13 @@ namespace Combophoto.Api.Controllers
             {
                 _logger.LogInformation("start");
 
-                var baseUrl = "http://faceswap-api:8080";
+                //var baseUrl = "http://faceswap-api:8080";
 
-                using var httpClient = new HttpClient();
+                //using var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync($"{baseUrl}/health");
-                var content = await response.Content.ReadAsStringAsync();
-                _logger.LogInformation(content);
+                //var response = await httpClient.GetAsync($"{baseUrl}/health");
+                //var content = await response.Content.ReadAsStringAsync();
+                //_logger.LogInformation(content);
             }
             catch (Exception ex)
             {
