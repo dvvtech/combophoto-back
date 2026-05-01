@@ -1,4 +1,4 @@
-﻿using Combophoto.Api.BLL.Abstract;
+using Combophoto.Api.BLL.Abstract;
 using System.Text;
 using System.Text.Json;
 
@@ -39,8 +39,17 @@ namespace Combophoto.Api.BLL.Services.AiClients.Replicate
             var json = JsonSerializer.Serialize(requestBody);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            //Send request            
-            var response = await _httpClient.PostAsync("models/black-forest-labs/flux-2-pro/predictions", content);
+            //Send request
+            HttpResponseMessage response;
+            try
+            {
+                response = await _httpClient.PostAsync("models/black-forest-labs/flux-2-pro/predictions", content);
+            }
+            catch (TaskCanceledException ex)
+            {
+                _logger.LogError(ex, "Timeout while calling Replicate Flux 2 Pro API");
+                return null;
+            }
             if (!response.IsSuccessStatusCode)
             {
                 var responseContentError = await response.Content.ReadAsStringAsync();
